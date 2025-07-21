@@ -12,9 +12,7 @@ import io.realm.exceptions.RealmException;
 
 public class RestaurantManager {
 
-    /**
-     * Menambahkan restoran baru secara asinkron untuk mencegah blokir UI thread.
-     */
+    
     public Restaurant addRestaurant(String name, String address, String phoneNumber, String description) {
         try(Realm realm = DatabaseManager.getInstance().getRealm()){
             realm.beginTransaction();
@@ -30,9 +28,7 @@ public class RestaurantManager {
         }
     }
 
-    /**
-     * Fungsi untuk mengambil semua restoran yang ada di dalam database.
-     */
+    
     public List<Restaurant> getAllRestaurants(){
         try(Realm realm = DatabaseManager.getInstance().getRealm()){
             List<Restaurant> restaurants = realm.where(Restaurant.class).findAll();
@@ -40,11 +36,7 @@ public class RestaurantManager {
         }
     }
 
-    /**
-     * Fungsi untuk mengambil restoran berdasarkan ID.
-     * @param restaurantId ID restoran yang ingin diambil.
-     * @return Objek Restaurant jika ditemukan, null jika tidak ditemukan.
-     */
+    
     public Restaurant getRestaurantById(String restaurantId) {
         try(Realm realm = DatabaseManager.getInstance().getRealm()) {
             Restaurant restaurant = realm.where(Restaurant.class)
