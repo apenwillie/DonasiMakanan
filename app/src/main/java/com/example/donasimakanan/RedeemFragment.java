@@ -14,12 +14,7 @@ import com.example.donasimakanan.model.Reward;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-/**
- * Sebuah Fragment yang bertanggung jawab untuk menampilkan daftar hadiah (Reward)
- * yang dapat ditukarkan oleh pengguna menggunakan poin mereka.
- * Kelas ini mengambil data dari database melalui RewardManager dan menampilkannya
- * dalam sebuah RecyclerView. Logika penukaran hadiah ditangani di dalam RewardAdapter.
- */
+
 public class RedeemFragment extends Fragment {
 
     private Realm realm;
@@ -27,13 +22,7 @@ public class RedeemFragment extends Fragment {
     private RewardAdapter adapter;
     private RewardManager rewardManager;
 
-    /**
-     * Dipanggil saat Fragment pertama kali dibuat.
-     * Method ini digunakan untuk inisialisasi awal yang tidak terkait dengan tampilan (View),
-     * seperti membuka koneksi database dan menginisialisasi RewardManager.
-     *
-     * @param savedInstanceState Jika fragment dibuat ulang dari state sebelumnya, ini adalah Bundlenya.
-     */
+    
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,30 +32,14 @@ public class RedeemFragment extends Fragment {
         rewardManager = new RewardManager(requireContext());
     }
 
-    /**
-     * Dipanggil untuk membuat dan mengembalikan hierarki View yang terkait dengan Fragment.
-     * Method ini meng-inflate layout XML (R.layout.fragment_redeem) yang akan menjadi
-     * tampilan visual dari Fragment ini.
-     *
-     * @param inflater Objek yang dapat meng-inflate layout XML menjadi objek View.
-     * @param container Parent View tempat layout fragment akan disisipkan.
-     * @param savedInstanceState Jika non-null, fragment ini dibuat ulang dari state yang disimpan.
-     * @return View untuk UI Fragment.
-     */
+    
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_redeem, container, false);
     }
 
-    /**
-     * Dipanggil segera setelah onCreateView() selesai.
-     * Method ini adalah tempat yang tepat untuk melakukan inisialisasi akhir pada View,
-     * seperti mencari referensi ke RecyclerView, mengambil data hadiah, dan mengatur adapter.
-     *
-     * @param view View yang dikembalikan oleh onCreateView().
-     * @param savedInstanceState Jika non-null, fragment ini dibuat ulang dari state yang disimpan.
-     */
+    
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -82,11 +55,7 @@ public class RedeemFragment extends Fragment {
         rvRewards.setAdapter(adapter);
     }
 
-    /**
-     * Dipanggil saat View yang terkait dengan Fragment akan dihancurkan.
-     * Ini adalah tempat yang tepat untuk membersihkan sumber daya yang terkait dengan View.
-     * Di sini, kita menutup instance Realm untuk mencegah kebocoran memori.
-     */
+    
     @Override
     public void onDestroy() {
         super.onDestroy();
