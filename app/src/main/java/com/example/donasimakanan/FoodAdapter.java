@@ -23,25 +23,14 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-/**
- * Adapter untuk menampilkan daftar makanan yang tersedia untuk donasi dalam sebuah RecyclerView.
- * Kelas ini tidak hanya menampilkan data, tetapi juga menangani seluruh interaksi pengguna
- * untuk setiap item makanan, mulai dari memilih jumlah hingga mengonfirmasi donasi.
- */
+
 public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder> {
     private List<Food> foods;
     private DonationManager donationManager;
     private SessionManager sessionManager;
     private String restaurantId;
 
-    /**
-     * Konstruktor untuk FoodAdapter.
-     * Menginisialisasi semua komponen yang diperlukan untuk operasi di dalam adapter.
-     *
-     * @param context Context dari Fragment atau Activity, diperlukan untuk SessionManager.
-     * @param foods Daftar (List) dari objek {@link Food} yang akan ditampilkan.
-     * @param restaurantId ID dari restoran tempat makanan ini berada, diperlukan saat membuat donasi.
-     */
+    
     public FoodAdapter(Context context, List<Food> foods, String restaurantId) {
         this.foods = foods;
         this.restaurantId = restaurantId;
@@ -51,15 +40,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         this.sessionManager = new SessionManager(context);
     }
 
-    /**
-     * Dipanggil saat RecyclerView membutuhkan ViewHolder baru untuk sebuah item.
-     * Method ini meng-inflate layout XML untuk satu item (R.layout.item_food)
-     * dan mengembalikannya dalam sebuah instance ViewHolder baru.
-     *
-     * @param parent ViewGroup tempat view baru akan ditambahkan setelah di-bind.
-     * @param viewType Tipe view dari item baru.
-     * @return Sebuah instance {@link FoodViewHolder} baru yang menampung View untuk setiap item.
-     */
+    
     @Nonnull
     @Override
     public FoodViewHolder onCreateViewHolder(@Nonnull ViewGroup parent, int viewType) {
@@ -67,23 +48,13 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         return new FoodViewHolder(view);
     }
 
-    /**
-     * Mengembalikan jumlah total item di dalam dataset yang dipegang oleh adapter.
-     * @return Jumlah total makanan dalam list.
-     */
+    
     @Override
     public int getItemCount() {
         return foods.size();
     }
 
-    /**
-     * Dipanggil oleh RecyclerView untuk menampilkan data pada posisi tertentu.
-     * Method ini adalah inti dari adapter, di mana data dari objek {@link Food} diikat ke
-     * komponen View dan semua listener untuk interaksi pengguna diatur.
-     *
-     * @param holder ViewHolder yang akan diperbarui untuk merepresentasikan konten item.
-     * @param position Posisi item di dalam dataset adapter.
-     */
+    
     @Override
     public void onBindViewHolder(@Nonnull FoodViewHolder holder, int position) {
         Food food = foods.get(position);
@@ -161,11 +132,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         });
     }
 
-    /**
-     * Kelas internal yang merepresentasikan dan menampung (hold) komponen View
-     * untuk setiap item makanan dalam RecyclerView.
-     * Ini meningkatkan performa dengan menghindari pemanggilan `findViewById()` yang berulang.
-     */
+    
     public static class FoodViewHolder extends RecyclerView.ViewHolder {
         TextView tvFoodName, tvFoodDescription, tvFoodPoint, tvFoodStock, tvFoodPrice;
         Button btnDonate, btnMinus, btnPlus, btnConfirm;
@@ -173,13 +140,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
         EditText etQuantity;
         TextInputEditText etDescription;
 
-        /**
-         * Konstruktor untuk ViewHolder.
-         * Mencari dan menyimpan referensi ke setiap sub-view dari layout item
-         * untuk digunakan nanti saat proses binding data.
-         *
-         * @param itemView View tunggal yang merepresentasikan satu item dalam daftar.
-         */
+        
         public FoodViewHolder(@Nonnull View itemView) {
             super(itemView);
             tvFoodName = itemView.findViewById(R.id.tv_food_name);
