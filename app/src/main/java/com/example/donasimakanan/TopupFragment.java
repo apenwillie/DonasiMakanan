@@ -15,44 +15,22 @@ import android.widget.Toast;
 import com.example.donasimakanan.manager.UserManager;
 import com.google.android.material.textfield.TextInputEditText;
 
-/**
- * Sebuah Fragment yang berfungsi sebagai halaman Isi Saldo (Top-up).
- * Halaman ini menyediakan antarmuka bagi pengguna untuk memasukkan sejumlah nominal,
- * memvalidasi input, dan menambahkan nominal tersebut ke saldo akun mereka
- * melalui UserManager.
- */
+
 public class TopupFragment extends Fragment {
     private UserManager userManager;
 
-    /**
-     * Konstruktor kosong yang wajib ada untuk setiap Fragment.
-     */
+    
     public TopupFragment() {
     }
 
-    /**
-     * Dipanggil saat Fragment pertama kali dibuat.
-     * Method ini digunakan untuk inisialisasi awal yang tidak terkait dengan tampilan (View),
-     * seperti menginisialisasi UserManager.
-     *
-     * @param savedInstanceState Jika fragment dibuat ulang dari state sebelumnya, ini adalah Bundlenya.
-     */
+    
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         userManager = new UserManager(getContext());
     }
 
-    /**
-     * Dipanggil untuk membuat dan mengembalikan hierarki View yang terkait dengan Fragment.
-     * Method ini meng-inflate layout XML, mencari referensi ke komponen UI,
-     * dan menetapkan listener untuk tombol konfirmasi top-up.
-     *
-     * @param inflater Objek yang dapat meng-inflate layout XML menjadi objek View.
-     * @param container Parent View tempat layout fragment akan disisipkan.
-     * @param savedInstanceState Jika non-null, fragment ini dibuat ulang dari state yang disimpan.
-     * @return View untuk UI Fragment.
-     */
+    
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         // Inflate layout untuk fragment ini
