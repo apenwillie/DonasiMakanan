@@ -17,11 +17,7 @@ public class DatabaseManager extends Application {
     private static DatabaseManager instance;
     private Realm realm;
 
-    /**
-     * Dipanggil saat aplikasi pertama kali dibuat.
-     * Method ini adalah titik awal untuk semua proses manajemen database,
-     * termasuk inisialisasi Realm dan pengisian data awal jika database kosong.
-     */
+    
     @Override
     public void onCreate(){
         super.onCreate();
@@ -30,13 +26,7 @@ public class DatabaseManager extends Application {
         seedDatabaseIfEmpty();
     }
 
-    /**
-     * Menyediakan akses global ke satu-satunya instance dari DatabaseManager (Singleton Pattern).
-     * Penggunaan `synchronized` memastikan method ini aman untuk diakses dari berbagai thread
-     * secara bersamaan tanpa risiko membuat beberapa instance.
-     *
-     * @return Instance tunggal dari DatabaseManager.
-     */
+    
     public static synchronized DatabaseManager getInstance(){
         if (instance == null) {
             instance = new DatabaseManager();
@@ -44,13 +34,7 @@ public class DatabaseManager extends Application {
         return instance;
     }
 
-    /**
-     * Menginisialisasi dan mengonfigurasi database Realm.
-     * Method ini mengatur nama file database, versi skema, dan kebijakan migrasi.
-     * `deleteRealmIfMigrationNeeded()` digunakan untuk kemudahan pengembangan,
-     * yang akan menghapus dan membuat ulang database jika ada perubahan skema.
-     * Dalam lingkungan produksi, strategi migrasi manual lebih disarankan.
-     */
+   
     private void initializeRealm(){
         Realm.init(this);
         RealmConfiguration config = new RealmConfiguration.Builder()
@@ -64,18 +48,12 @@ public class DatabaseManager extends Application {
         Log.d("DatabaseManager", "Realm berhasil diinisialisasi dengan konfigurasi: " + config.toString());
     }
 
-    /**
-     * Mengambil instance default dari Realm yang sudah dikonfigurasi.
-     * @return Instance Realm yang siap digunakan.
-     */
+    
     public Realm getRealm(){
         return Realm.getDefaultInstance();
     }
 
-    /**
-     * Menutup instance Realm yang sedang terbuka untuk melepaskan sumber daya.
-     * Penting untuk dipanggil saat aplikasi ditutup untuk mencegah kebocoran memori.
-     */
+    
     public void closeRealm(){
         if(realm != null && !realm.isClosed()){
             realm.close();
@@ -85,12 +63,7 @@ public class DatabaseManager extends Application {
         }
     }
 
-    /**
-     * Mengisi database dengan data awal (seeding) jika database masih kosong.
-     * Method ini memastikan aplikasi memiliki data contoh saat pertama kali dijalankan,
-     * berguna untuk development dan demonstrasi. Data yang diisi meliputi
-     * restoran, makanan, dan hadiah.
-     */
+   
 
     public void seedDatabaseIfEmpty() {
         Realm realm = Realm.getDefaultInstance();
