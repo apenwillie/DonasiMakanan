@@ -14,12 +14,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.UUID;
 
-/**
- * Sebuah Activity yang menangani proses registrasi pengguna baru.
- * Kelas ini menyediakan antarmuka bagi pengguna untuk memasukkan data diri (nama, email, password),
- * melakukan validasi input secara komprehensif, dan mendaftarkan pengguna baru ke dalam sistem
- * melalui UserManager.
- */
+
 public class RegisterActivity extends AppCompatActivity {
 
     // Komponen UI untuk input data pengguna
@@ -32,13 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
     // Manager untuk mengelola operasi database terkait pengguna
     private UserManager userManager;
 
-    /**
-     * Dipanggil saat Activity pertama kali dibuat.
-     * Method ini adalah titik awal untuk inisialisasi layout, komponen UI,
-     * dan UserManager.
-     *
-     * @param savedInstanceState Jika activity dibuat ulang dari state sebelumnya, ini adalah Bundlenya.
-     */
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,11 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
         setupListeners();
     }
 
-    /**
-     * Menginisialisasi semua komponen UI dari layout XML.
-     * Method ini mencari dan menetapkan referensi untuk setiap View
-     * menggunakan ID-nya masing-masing.
-     */
+    
     private void initViews() {
         etFullName = findViewById(R.id.et_register_fullname);
         etEmail = findViewById(R.id.et_register_email);
@@ -66,9 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
         tvLoginLink = findViewById(R.id.tv_login_link);
     }
 
-    /**
-     * Menetapkan semua listener untuk interaksi pengguna pada komponen UI.
-     */
+    
     private void setupListeners() {
         // Listener untuk tombol registrasi, akan memanggil method performRegister saat diklik
         btnRegister.setOnClickListener(v -> performRegister());
@@ -81,11 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Menjalankan proses registrasi setelah tombol ditekan.
-     * Method ini mengambil semua input, memvalidasinya, dan jika valid,
-     * akan memanggil UserManager untuk membuat pengguna baru.
-     */
+    
     private void performRegister() {
         String fullName = etFullName.getText().toString().trim();
         String email = etEmail.getText().toString().trim();
@@ -114,15 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Memvalidasi semua field input dari form registrasi.
-     *
-     * @param fullName Nama lengkap yang dimasukkan.
-     * @param email Email yang dimasukkan.
-     * @param password Password yang dimasukkan.
-     * @param confirmPassword Konfirmasi password yang dimasukkan.
-     * @return {@code true} jika semua input valid, {@code false} jika ada satu atau lebih input yang tidak valid.
-     */
+    
     private boolean validateInputs(String fullName, String email, String password, String confirmPassword) {
         // Validasi nama lengkap
         if (fullName.isEmpty()) {
@@ -159,11 +130,7 @@ public class RegisterActivity extends AppCompatActivity {
         return true; // Semua input valid
     }
 
-    /**
-     * Dipanggil saat Activity akan dihancurkan.
-     * Method ini digunakan untuk membersihkan sumber daya, seperti menutup
-     * koneksi database Realm untuk mencegah kebocoran memori.
-     */
+    
     @Override
     protected void onDestroy() {
         super.onDestroy();
