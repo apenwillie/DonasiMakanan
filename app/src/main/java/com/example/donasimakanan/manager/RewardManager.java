@@ -17,38 +17,18 @@ import io.realm.RealmResults;
 import io.realm.Sort;
 import io.realm.exceptions.RealmException;
 
-/**
- * Mengelola semua operasi database yang terkait dengan Hadiah (Reward).
- * Kelas ini menyediakan fungsi untuk membuat, mengambil, dan menukarkan hadiah,
- * serta melihat riwayat penukaran oleh pengguna.
- */
+
 public class RewardManager {
     private Realm realm;
     private SessionManager sessionManager;
 
-    /**
-     * Konstruktor untuk RewardManager.
-     * Menginisialisasi instance Realm dan SessionManager yang akan digunakan
-     * untuk semua operasi di dalam kelas ini.
-     *
-     * @param context Context dari aplikasi, diperlukan untuk SessionManager.
-     */
+   
     public RewardManager(Context context) {
         this.realm = DatabaseManager.getInstance().getRealm();
         this.sessionManager = new SessionManager(context);
     }
 
-    /**
-     * Membuat hadiah baru di dalam sistem. Fungsi ini biasanya hanya untuk admin.
-     * Operasi dilakukan dalam sebuah transaksi Realm yang aman.
-     *
-     * @param userId ID pengguna (admin) yang membuat hadiah.
-     * @param name Nama dari hadiah.
-     * @param description Deskripsi rinci mengenai hadiah.
-     * @param pointsRequired Jumlah poin yang dibutuhkan untuk menukar hadiah.
-     * @param stock Jumlah stok awal yang tersedia untuk hadiah ini.
-     * @return {@code true} jika hadiah berhasil dibuat, {@code false} jika terjadi kesalahan.
-     */
+    
     public boolean createReward(String userId, String name, String description, int pointsRequired, int stock) {
         realm.beginTransaction();
         try {
@@ -67,13 +47,7 @@ public class RewardManager {
         }
     }
 
-    /**
-     * Mengambil semua hadiah yang masih aktif (stok lebih dari 0).
-     * Hasilnya diurutkan berdasarkan poin yang dibutuhkan (dari yang termurah),
-     * sehingga memudahkan pengguna untuk melihat hadiah yang bisa mereka jangkau.
-     *
-     * @return {@link RealmResults<Reward>} daftar hadiah aktif yang bersifat live-updating.
-     */
+    
     public RealmResults<Reward> getAllActiveRewards() {
         return realm.where(Reward.class)
                 .greaterThan("stock", 0)
@@ -81,33 +55,16 @@ public class RewardManager {
                 .findAll();
     }
 
-    /**
-     * Mengambil satu objek hadiah spesifik berdasarkan ID-nya.
-     *
-     * @param rewardId ID unik dari hadiah yang dicari.
-     * @return Objek {@link Reward} jika ditemukan, atau {@code null} jika tidak.
-     */
+    
     public Reward getRewardById(String rewardId) {
         return realm.where(Reward.class)
                 .equalTo("rewardId", rewardId)
                 .findFirst();
     }
 
-    /**
-     * Memproses penukaran hadiah oleh pengguna.
-     * Method ini melakukan serangkaian operasi dalam satu transaksi atomik:
-     * 1. Memvalidasi data pengguna, hadiah, poin, dan stok.
-     * 2. Mengurangi stok hadiah.
-     * 3. Mengurangi poin pengguna.
-     * 4. Membuat catatan riwayat penukaran di {@link UserRewardExchange}.
-     * Jika salah satu langkah gagal, semua perubahan akan dibatalkan.
-     *
-     * @param rewardId ID dari hadiah yang akan ditukar.
-     * @return {@code true} jika seluruh proses penukaran berhasil, {@code false} jika gagal.
-     */
+    
     public boolean redeemReward(String rewardId) {
-        // Menggunakan try-with-resources adalah praktik yang baik, namun karena instance
-        // realm di-manage secara global di sini, kita akan gunakan try-finally biasa.
+        
         realm.beginTransaction();
         try {
             String userId = sessionManager.getUserId();
@@ -146,13 +103,7 @@ public class RewardManager {
         }
     }
 
-    /**
-     * Mengambil riwayat penukaran hadiah untuk seorang pengguna spesifik.
-     * Hasilnya diurutkan berdasarkan tanggal penukaran (dari yang terbaru).
-     *
-     * @param userId ID dari pengguna yang riwayatnya ingin dilihat.
-     * @return {@link RealmResults<UserRewardExchange>} daftar riwayat penukaran yang bersifat live-updating.
-     */
+    
     public RealmResults<UserRewardExchange> getUserRewards(String userId) {
         return realm.where(UserRewardExchange.class)
                 .equalTo("userId", userId)
@@ -160,14 +111,7 @@ public class RewardManager {
                 .findAll();
     }
 
-    /**
-     * Memperbarui jumlah stok untuk sebuah hadiah.
-     * Fungsi ini biasanya hanya untuk admin.
-     *
-     * @param rewardId ID dari hadiah yang stoknya akan diubah.
-     * @param newStock Jumlah stok yang baru.
-     * @return {@code true} jika berhasil, {@code false} jika hadiah tidak ditemukan atau terjadi error.
-     */
+    
     public boolean updateRewardStock(String rewardId, int newStock) {
         realm.beginTransaction();
         try {
