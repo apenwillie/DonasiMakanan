@@ -21,12 +21,7 @@ import com.example.donasimakanan.model.User;
 
 import java.util.List;
 
-/**
- * Sebuah Fragment yang berfungsi sebagai halaman utama atau dashboard aplikasi.
- * Halaman ini menampilkan informasi ringkas pengguna (nama, poin, saldo),
- * daftar restoran yang tersedia, serta menyediakan tombol navigasi untuk
- * fitur-fitur utama seperti isi saldo dan tukar poin.
- */
+
 public class HomeFragment extends Fragment {
 
     // Komponen UI untuk menampilkan daftar restoran
@@ -42,35 +37,18 @@ public class HomeFragment extends Fragment {
     // Manager untuk mengelola data restoran
     private RestaurantManager restaurantManager = new RestaurantManager();
 
-    /**
-     * Konstruktor kosong yang wajib ada untuk setiap Fragment.
-     */
+    
     public HomeFragment() {
     }
 
-    /**
-     * Dipanggil saat Fragment pertama kali dibuat.
-     * Method ini digunakan untuk inisialisasi awal yang tidak terkait dengan tampilan (View),
-     * seperti menginisialisasi UserManager.
-     *
-     * @param savedInstanceState Jika fragment dibuat ulang dari state sebelumnya, ini adalah Bundlenya.
-     */
+    
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         userManager = new UserManager(getContext());
     }
 
-    /**
-     * Dipanggil untuk membuat dan mengembalikan hierarki View yang terkait dengan Fragment.
-     * Method ini meng-inflate layout XML, mencari referensi ke semua komponen UI,
-     * mengatur data, dan menetapkan semua listener untuk interaksi pengguna.
-     *
-     * @param inflater Objek yang dapat meng-inflate layout XML menjadi objek View.
-     * @param container Parent View tempat layout fragment akan disisipkan.
-     * @param savedInstanceState Jika non-null, fragment ini dibuat ulang dari state yang disimpan.
-     * @return View untuk UI Fragment.
-     */
+    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
