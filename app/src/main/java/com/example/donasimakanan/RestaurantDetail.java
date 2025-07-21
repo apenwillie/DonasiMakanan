@@ -20,11 +20,7 @@ import com.example.donasimakanan.model.Restaurant;
 
 import java.util.List;
 
-/**
- * Sebuah Fragment yang menampilkan halaman detail untuk satu restoran spesifik.
- * Kelas ini bertanggung jawab untuk menerima ID restoran, mengambil data detailnya,
- * dan menampilkan daftar makanan yang tersedia di restoran tersebut menggunakan RecyclerView.
- */
+
 public class RestaurantDetail extends Fragment {
     // Kunci untuk menyimpan dan mengambil ID restoran dari Bundle arguments.
     private static final String ARG_RESTAURANT_ID = "restaurant_id";
@@ -34,14 +30,7 @@ public class RestaurantDetail extends Fragment {
     private RestaurantManager restaurantManager = new RestaurantManager();
     private FoodManager foodManager = new FoodManager();
 
-    /**
-     * Factory method untuk membuat instance baru dari RestaurantDetail.
-     * Menggunakan metode ini adalah praktik terbaik karena memungkinkan kita untuk
-     * mengirimkan argumen (seperti restaurantId) ke fragment secara aman dan terstruktur.
-     *
-     * @param restaurantId ID unik dari restoran yang detailnya akan ditampilkan.
-     * @return Sebuah instance baru dari fragment RestaurantDetail.
-     */
+    
     public static RestaurantDetail newInstance(String restaurantId) {
         RestaurantDetail fragment = new RestaurantDetail();
         Bundle args = new Bundle();
@@ -50,13 +39,7 @@ public class RestaurantDetail extends Fragment {
         return fragment;
     }
 
-    /**
-     * Dipanggil saat Fragment pertama kali dibuat.
-     * Method ini digunakan untuk mengambil argumen yang dikirimkan melalui newInstance,
-     * dalam hal ini adalah restaurantId.
-     *
-     * @param savedInstanceState Jika fragment dibuat ulang dari state sebelumnya, ini adalah Bundlenya.
-     */
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,16 +48,7 @@ public class RestaurantDetail extends Fragment {
         }
     }
 
-    /**
-     * Dipanggil untuk membuat dan mengembalikan hierarki View yang terkait dengan Fragment.
-     * Method ini meng-inflate layout XML, mencari referensi ke komponen UI,
-     * mengambil data, dan mengatur adapter untuk menampilkan daftar makanan.
-     *
-     * @param inflater Objek yang dapat meng-inflate layout XML menjadi objek View.
-     * @param container Parent View tempat layout fragment akan disisipkan.
-     * @param savedInstanceState Jika non-null, fragment ini dibuat ulang dari state yang disimpan.
-     * @return View untuk UI Fragment.
-     */
+    
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
