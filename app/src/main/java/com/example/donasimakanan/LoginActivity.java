@@ -12,12 +12,7 @@ import com.example.donasimakanan.model.User;
 import com.example.donasimakanan.util.SessionManager;
 import com.google.android.material.textfield.TextInputEditText;
 
-/**
- * Sebuah Activity yang menangani proses otentikasi pengguna (login).
- * Kelas ini menyediakan antarmuka bagi pengguna untuk memasukkan email dan password,
- * memvalidasi input, memverifikasi kredensial dengan database, dan mengelola sesi login.
- * Implementasi ini mencakup penanganan error dan navigasi yang tepat setelah login berhasil.
- */
+
 public class LoginActivity extends AppCompatActivity {
 
     // Komponen UI untuk input email dan password
@@ -32,13 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     // Manager untuk mengelola sesi login pengguna
     private SessionManager sessionManager;
 
-    /**
-     * Dipanggil saat Activity pertama kali dibuat.
-     * Method ini adalah titik awal untuk inisialisasi layout, komponen UI,
-     * manager, dan listener.
-     *
-     * @param savedInstanceState Jika activity dibuat ulang dari state sebelumnya, ini adalah Bundlenya.
-     */
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,11 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         setupListeners();
     }
 
-    /**
-     * Menginisialisasi semua komponen UI dari layout XML.
-     * Method ini mencari dan menetapkan referensi untuk setiap View
-     * menggunakan ID-nya masing-masing.
-     */
+   
     private void initViews() {
         etEmail = findViewById(R.id.et_login_email);
         etPassword = findViewById(R.id.et_login_password);
@@ -65,9 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         tvRegisterLink = findViewById(R.id.tv_register_link);
     }
 
-    /**
-     * Menetapkan semua listener untuk interaksi pengguna pada komponen UI.
-     */
+    
     private void setupListeners() {
         // Listener untuk tombol login, akan memanggil method performLogin saat diklik
         btnLogin.setOnClickListener(v -> performLogin());
@@ -79,11 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Menjalankan proses login setelah tombol ditekan.
-     * Method ini mengambil input dari pengguna, melakukan validasi dasar,
-     * memverifikasi kredensial dengan database, dan membuat sesi jika berhasil.
-     */
+    
     private void performLogin() {
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
@@ -123,11 +102,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Mengarahkan pengguna ke MainActivity setelah login berhasil.
-     * Method ini menggunakan Intent Flags untuk membersihkan riwayat activity sebelumnya,
-     * sehingga pengguna tidak bisa kembali ke halaman login dengan tombol "Back".
-     */
+    
     private void redirectToMain() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -135,11 +110,7 @@ public class LoginActivity extends AppCompatActivity {
         finish(); // Menutup LoginActivity
     }
 
-    /**
-     * Dipanggil saat Activity akan dihancurkan.
-     * Method ini digunakan untuk membersihkan sumber daya, seperti menutup
-     * koneksi database Realm untuk mencegah kebocoran memori.
-     */
+    
     @Override
     protected void onDestroy() {
         super.onDestroy();
