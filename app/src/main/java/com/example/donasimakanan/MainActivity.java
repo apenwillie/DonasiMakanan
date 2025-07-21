@@ -10,21 +10,10 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-/**
- * Activity utama aplikasi yang berfungsi sebagai wadah (container) untuk fragment-fragment utama.
- * Kelas ini bertanggung jawab untuk mengatur layout utama dan menangani logika navigasi
- * menggunakan BottomNavigationView, memungkinkan pengguna untuk beralih antara halaman
- * Home, History, dan Settings.
- */
+
 public class MainActivity extends AppCompatActivity {
 
-    /**
-     * Dipanggil saat Activity pertama kali dibuat.
-     * Method ini adalah titik awal untuk inisialisasi layout, menangani tampilan edge-to-edge,
-     * memuat fragment awal (HomeFragment), dan mengatur listener untuk BottomNavigationView.
-     *
-     * @param savedInstanceState Jika activity dibuat ulang dari state sebelumnya, ini adalah Bundlenya.
-     */
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
