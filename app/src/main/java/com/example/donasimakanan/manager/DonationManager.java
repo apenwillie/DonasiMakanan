@@ -15,24 +15,14 @@ import java.util.UUID;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-/**
- * Mengelola semua operasi database yang terkait dengan Donasi (Donation).
- * Kelas ini menyediakan serangkaian fungsi untuk menangani proses pembuatan donasi,
- * pengambilan riwayat, dan validasi terkait donasi.
- */
+
 public class DonationManager {
     private Realm realm;
     private FoodManager foodManager;
     private UserManager userManager;
     private Context context;
 
-    /**
-     * Konstruktor untuk DonationManager.
-     * Menginisialisasi instance Realm dan manager lain yang dibutuhkan (FoodManager, UserManager)
-     * untuk semua operasi di dalam kelas ini.
-     *
-     * @param context Context dari aplikasi, diperlukan untuk UserManager dan fungsionalitas lain.
-     */
+    
     public DonationManager(Context context) {
         this.context = context.getApplicationContext();
         this.realm = DatabaseManager.getInstance().getRealm();
@@ -40,24 +30,7 @@ public class DonationManager {
         this.userManager = new UserManager(context);
     }
 
-    /**
-     * Menambahkan catatan donasi baru ke dalam sistem.
-     * Method ini melakukan serangkaian operasi dalam satu transaksi atomik:
-     * 1. Memvalidasi saldo pengguna.
-     * 2. Membuat objek Donasi baru.
-     * 3. Mengurangi stok makanan.
-     * 4. Mengurangi saldo pengguna.
-     * 5. Menambahkan poin ke pengguna.
-     * Jika salah satu langkah gagal, semua perubahan akan dibatalkan.
-     *
-     * @param userId ID pengguna yang melakukan donasi.
-     * @param foodId ID makanan yang didonasikan.
-     * @param quantity Jumlah makanan yang didonasikan.
-     * @param restaurantId ID restoran tempat makanan berasal.
-     * @param description Catatan tambahan dari pengguna untuk donasi ini.
-     * @throws IllegalArgumentException jika makanan tidak ditemukan, saldo tidak cukup, atau pengguna tidak ditemukan.
-     * @throws Exception jika terjadi kesalahan lain saat transaksi.
-     */
+    
     public void addDonation(String userId, String foodId, int quantity, String restaurantId, String description) {
         realm.beginTransaction();
         try {
@@ -102,26 +75,13 @@ public class DonationManager {
         }
     }
 
-    /**
-     * Mengambil riwayat donasi untuk seorang pengguna spesifik.
-     * Method ini mengembalikan salinan data (unmanaged list) dari Realm,
-     * yang berarti data tidak akan otomatis ter-update jika ada perubahan di database.
-     *
-     * @param userId ID dari pengguna yang riwayatnya ingin dilihat.
-     * @return {@link List<Donation>} daftar salinan objek donasi.
-     */
+    
     public List<Donation> getUserDonation(String userId) {
         RealmResults<Donation> donations = realm.where(Donation.class).equalTo("userId", userId).findAll();
         return realm.copyFromRealm(donations);
     }
 
-    /**
-     * Menghitung dan menetapkan poin yang didapat untuk sebuah donasi yang sudah ada.
-     * Fungsi ini bisa digunakan jika poin tidak dihitung saat donasi pertama kali dibuat.
-     *
-     * @param donationId ID dari donasi yang poinnya akan dihitung.
-     * @throws IllegalArgumentException jika makanan terkait donasi tidak ditemukan.
-     */
+    
     public void calcaulatePoints(String donationId) {
         realm.beginTransaction();
         try {
@@ -143,14 +103,7 @@ public class DonationManager {
         }
     }
 
-    /**
-     * Memeriksa apakah stok makanan yang tersedia mencukupi untuk jumlah donasi yang diminta.
-     *
-     * @param foodId ID dari makanan yang akan diperiksa.
-     * @param quantity Jumlah yang ingin didonasikan.
-     * @return {@code true} jika stok mencukupi, {@code false} jika tidak atau jika makanan tidak ditemukan.
-     * @throws RuntimeException jika terjadi kesalahan saat mengakses database.
-     */
+    
     public boolean checkQuantity(String foodId, int quantity) {
         try {
             Food food = foodManager.getFoodById(foodId);
